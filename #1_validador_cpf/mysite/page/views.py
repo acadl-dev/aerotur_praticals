@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from .utils import valida_cpf
+from .utils import *
 from django.contrib import messages
+from django.http import HttpResponse
 
 def home(request):
     return render(request, 'home.html')
@@ -17,3 +18,8 @@ def valida_cpf_view(request):
             messages.error(request, "CPF inválido!")  # Mensagem de erro em vez de resultado
     
     return render(request, 'validar_cpf.html')
+
+
+
+def validador_cpf(request, cpf):
+    return HttpResponse(valida_cpf(cpf))

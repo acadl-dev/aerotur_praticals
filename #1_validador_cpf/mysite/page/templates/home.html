@@ -15,13 +15,29 @@
 
         <form method="POST" >
             {% csrf_token %}
-            <input type="text" name="cpf" placeholder="Digite o CPF" class="mt-6 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <button type="submit" class="mt-4 w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            <input id="cpf" type="text" name="cpf" placeholder="Digite o CPF" class="mt-6 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button type="submit" onclick="gambiarraComJavaScript()" class="mt-4 w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                 Verificar
             </button>
         </form>
                 
     </div>   
+
+    <script>
+        function gambiarraComJavaScript() {            
+            let cpf = document.getElementById('cpf').value;
+
+            var xmlhttp;
+            xmlhttp=new XMLHttpRequest();
+            xmlhttp.onreadystatechange=funcaoTrataRespostaServidor;
+            xmlhttp.open("GET","nome_recurso_servidor",true);
+            xmlhttp.send();
+            
+
+            return console.log(cpf);
+        }
+        
+    </script>
 
 </body>
 </html>

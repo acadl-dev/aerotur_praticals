@@ -1,66 +1,58 @@
-def valida_cpf(cpf):
-    # Remove qualquer caractere não numérico
-    cpf = ''.join([c for c in cpf if c.isdigit()])
-    
-    # Verifica se o CPF tem 11 dígitos
-    if len(cpf) != 11:
-        return False
 
-    # Verifica se todos os dígitos são iguais
-    if cpf == cpf[0] * 11:
-        return False
+def valida_cpf(cpf):     
+    cpf_lista = list(cpf)  
+    cpf_sum = 0
+    cpf_sum_sd = 0
+    cont = 0
+    cont_sd = 0
+    contagem_regressiva_pdf = 10
+    contagem_regressiva_sdf = 11
+    valor_onze = 11
 
-    # Validação do primeiro dígito verificador
-    soma1 = sum(int(cpf[i]) * (10 - i) for i in range(9))
-    digito1 = (soma1 * 10) % 11
-    if digito1 == 10 or digito1 == 11:
-        digito1 = 0
-    if digito1 != int(cpf[9]):
-        return False
+    # Cálculo para avaliar o primeiro digito validador
+    for digitos in cpf_lista[:9]:      
 
-    # Validação do segundo dígito verificador
-    soma2 = sum(int(cpf[i]) * (11 - i) for i in range(10))
-    digito2 = (soma2 * 10) % 11
-    if digito2 == 10 or digito2 == 11:
-        digito2 = 0
-    if digito2 != int(cpf[10]):
-        return False
+      cpf_sum = int(digitos) * contagem_regressiva_pdf
+      cont += cpf_sum
+      contagem_regressiva_pdf -= 1
+         
+
+    resto = cont % valor_onze
+
+  
+    primeiro_digito_verificador = valor_onze - resto
+
+    if (primeiro_digito_verificador >= 10):
+      primeiro_digito_verificador = 0  
     
-    # Através do nono digito saber em qual região o cpf foi emitido
-    nono_digito = int(cpf[8])
-    regiao  = ''
+    # Cálculo para avaliar o segundo digito validador
+
+    for digito in cpf_lista[:10]:
+      cpf_sum_sd = int(digito) * contagem_regressiva_sdf
+      cont_sd += cpf_sum_sd
+      contagem_regressiva_sdf -= 1
+      
+
+    resto_sd = cont_sd % valor_onze
     
-    if nono_digito == 1:
-        regiao = 'DF, GO, MS, MT ou  TO'
-    elif nono_digito == 2:
-        regiao = 'AC, AM, AP, PA, RO ou RR'
-    elif nono_digito == 3:
-        regiao = 'CE, MA ou PI'
-    elif nono_digito == 4:
-        regiao = 'AL, PB, PE ou RN'
-    elif nono_digito == 5:
-        regiao = 'BA e SE'
-    elif nono_digito == 6:
-        regiao = 'MG'
-    elif nono_digito == 7:
-        regiao = 'ES ou RJ'
-    elif nono_digito == 8:
-        regiao = 'SP'
-    elif nono_digito == 9:
-        regiao = 'PR ou SC'
-    elif nono_digito == 0:
-        regiao = 'RS'
+
+    segundo_digito_verificador = valor_onze - resto_sd
+    if (segundo_digito_verificador >= 10):
+      segundo_digito_verificador = 0
+
+    #lógica para checar a validação do cpf
+    
+    cpf_correto = cpf_lista[:9] + [str(primeiro_digito_verificador)] + [str(segundo_digito_verificador)]    
+
+    cpf_corret_str = ''.join(cpf_correto)    
+
+    if (cpf_corret_str == cpf):
+      return True
     else:
-        return "Valor inválido"
-    
+      return False
+      
 
-    return True, regiao
 
-# Exemplo de uso  
 
-""" cpf = input("Digite o CPF para validar: ")
-valido, regiao = valida_cpf(cpf)
-if valido:
-    print(f'CPF válido! E ele é originário da região: {regiao}')
-else:
-    print("CPF inválido!") """
+
+
