@@ -43,15 +43,24 @@
                     return response.json(); // Converte a resposta para JSON
                 })
                 .then(data => {
-                    const mensagemDiv = document.createElement('div');
-
-                    mensagemDiv.className = data.valido
+                    const mensagemDiv = document.createElement('div');  
+                        
+                        mensagemDiv.className = data.valido
                         ? 'bg-green-100 text-green-700 p-4 rounded mt-4'
                         : 'bg-red-100 text-red-700 p-4 rounded mt-4';
                     mensagemDiv.textContent = data.mensagem;
 
+                    function reset(){
+                        mensagemDiv.textContent = '';
+                    }
+
+                    setTimeout(reset, 1500)
+
+                    
+
                     // Insere a mensagem abaixo do formulário
                     const formulario = document.querySelector('form');
+                    setTimeout(mensagemDiv.className, 3000)
                     formulario.parentNode.insertBefore(mensagemDiv, formulario.nextSibling);
                 })
                 .catch(error => console.error('Erro:', error));
