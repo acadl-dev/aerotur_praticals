@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,37 +8,56 @@
     {% load static %}
     <link href="{% static 'pages/output.css' %}" rel="stylesheet">
 </head>
+
 <body class="bg-gray-100 flex justify-center items-center h-screen">
 
     <div class="text-center bg-white p-10 rounded-lg shadow-lg w-full max-w-md">
         <h1 class="text-3xl font-bold text-blue-500">Validador de CPF</h1>
         <p class="text-blue-700 mt-4">Digite o CPF para verificar sua validade</p>
 
-        <form method="POST" >
+        <form method="POST" id="cpf-form">
             {% csrf_token %}
-            <input id="cpf" type="text" name="cpf" placeholder="Digite o CPF" class="mt-6 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <button type="submit" onclick="gambiarraComJavaScript()" class="mt-4 w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            <input id="cpf" type="text" name="cpf" placeholder="Digite o CPF"
+                class="mt-6 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button type="submit"
+                class="mt-4 w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                 Verificar
             </button>
         </form>
-                
-    </div>   
+
+    </div>
 
     <script>
-        function gambiarraComJavaScript() {            
-            let cpf = document.getElementById('cpf').value;
+        document.getElementById('cpf-form').addEventListener('submit', function(event) {
+            event.preventDefault();  // Impede o envio normal do formulário
 
-            var xmlhttp;
-            xmlhttp=new XMLHttpRequest();
-            xmlhttp.onreadystatechange=funcaoTrataRespostaServidor;
-            xmlhttp.open("GET","nome_recurso_servidor",true);
-            xmlhttp.send();
-            
+            let cpf = document.getElementById('cpf').value; // Obtém o CPF do input
 
-            return console.log(cpf);
-        }
-        
+            // Envia o CPF para a view Django usando Fetch API
+            fetch(`/validador_cpf/${cpf}/`)
+                .then(response => {
+                    if (!response.ok) {
+                        console.log('Deu erro');
+                        throw new Error('Erro ao validar CPF. Verifique a URL e o backend.');
+                    }
+                    return response.json(); // Converte a resposta para JSON
+                })
+                .then(data => {
+                    const mensagemDiv = document.createElement('div');
+
+                    mensagemDiv.className = data.valido
+                        ? 'bg-green-100 text-green-700 p-4 rounded mt-4'
+                        : 'bg-red-100 text-red-700 p-4 rounded mt-4';
+                    mensagemDiv.textContent = data.mensagem;
+
+                    // Insere a mensagem abaixo do formulário
+                    const formulario = document.querySelector('form');
+                    formulario.parentNode.insertBefore(mensagemDiv, formulario.nextSibling);
+                })
+                .catch(error => console.error('Erro:', error));
+        });
     </script>
 
 </body>
+
 </html>
