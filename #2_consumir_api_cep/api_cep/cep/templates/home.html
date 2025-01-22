@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONSUMINDO API - CEP</title>
+    {% load static %}
+    <link href="{% static 'cep/output.css' %}" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+    <div class="text-center bg-white p-10 rounded-lg shadow-lg w-full max-w-md">
+        <h1 class="text-3xl font-bold text-blue-500">API CEP</h1>
+        <p class="text-blue-700 mt-4">Digite o CEP para verificar sua localização:</p>
+
+        <form method="POST" id="cep-form">
+            {% csrf_token %}
+            <input id="cep" type="text" name="cep" placeholder="Digite o CEP">
+            <button type="submit">
+                Verificar
+            </button>
+        </form>
+
+    </div>
+
+</body>
+
+</html>
