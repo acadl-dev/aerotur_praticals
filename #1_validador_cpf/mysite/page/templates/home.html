@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado da Validação do CPF</title>
     {% load static %}
-    <link href="{% static 'pages/output.css' %}" rel="stylesheet">
+    <link href="{% static 'pages/output.css' %}" rel="stylesheet">  
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>  
 </head>
 
 <body class="bg-gray-100 flex justify-center items-center h-screen">
@@ -28,43 +29,46 @@
     </div>
 
     <script>
-        document.getElementById('cpf-form').addEventListener('submit', function(event) {
+        document.getElementById('cpf-form').addEventListener('submit', function (event) {
             event.preventDefault();  // Impede o envio normal do formulário
 
-            let cpf = document.getElementById('cpf').value; // Obtém o CPF do input
+            $.ajax({
+                type: 'POST',
+                url: '/validador_cpf/' + document.getElementById('cpf').value + '/',
+                data: { cpf: document.getElementById('cpf').value },
+                success: function (response) {
+                    // Código a ser executado em caso de sucesso     
 
-            // Envia o CPF para a view Django usando Fetch API
-            fetch(`/validador_cpf/${cpf}/`)
-                .then(response => {
-                    if (!response.ok) {
-                        console.log('Deu erro');
-                        throw new Error('Erro ao validar CPF. Verifique a URL e o backend.');
-                    }
-                    return response.json(); // Converte a resposta para JSON
-                })
-                .then(data => {
-                    const mensagemDiv = document.createElement('div');  
-                        
-                        mensagemDiv.className = data.valido
+                    const mensagemDiv = document.createElement('div');
+                    
+
+                    mensagemDiv.className = response['valido']
                         ? 'bg-green-100 text-green-700 p-4 rounded mt-4'
                         : 'bg-red-100 text-red-700 p-4 rounded mt-4';
-                    mensagemDiv.textContent = data.mensagem;
+                    
+                    mensagemDiv.textContent = response['mensagem'];
 
-                    function reset(){
+                    function reset() {
                         mensagemDiv.textContent = '';
                     }
 
                     setTimeout(reset, 1500)
 
-                    
-
                     // Insere a mensagem abaixo do formulário
                     const formulario = document.querySelector('form');
-                    setTimeout(mensagemDiv.className, 3000)
+                    
                     formulario.parentNode.insertBefore(mensagemDiv, formulario.nextSibling);
-                })
-                .catch(error => console.error('Erro:', error));
-        });
+                },
+                error: function (error) {
+                    // Código a ser executado em caso de erro
+                    console.log("deu errado!")
+                }
+            });
+        }
+        )
+
+
+
     </script>
 
 </body>
