@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM</title>
+</head>
+
+<body>
+    <div>
+        <h1>CADASTRAR USUÁRIO</h1>
+        <p>Complete suas informações:</p>
+
+        <form method="POST" id="cep-form">
+            {% csrf_token %}
+            <div>
+                <label>NOME:</label>
+                <input id="nome" type="text" name="nome" placeholder="Digite seu nome">
+                <div></div>
+
+                <label>CPF:</label>
+                <input id="cpf" type="text" name="cpf" placeholder="Digite o CPF" maxlength="11" onkeyup="">
+                <div id="cpf"></div> 
+                
+                <label>CNPJ:</label>
+                <input id="cpf" type="text" name="cpf" placeholder="Digite o CPF" maxlength="11" onkeyup="">
+                <div id="cpf"></div>
+
+                <label>EMAIL:</label>
+                <input id="email" type="text" name="email" placeholder="Digite seu email">
+                <div id="cep"></div> 
+                         
+            
+                <label>CEP:</label>
+                <input id="cep" type="text" name="cep" placeholder="Digite o CEP">
+                <div id="cep"></div>                  
+                
+                
+                <p>Região:</p>
+                <div id="regiao"></div>   
+
+                <p>Rua:</p>
+                <div id="rua"></div>
+
+                <p>Bairro:</p>
+                <div id="bairro"></div>
+
+                <p>Cidade:</p>
+                <div id="cidade"></div>
+
+                <p>UF:</p>
+                <div id="uf"></div>
+
+                <p>Região:</p>
+                <div id="regiao"></div>
+                
+            </div>
+        </form>
+
+    </div>
+
+    <script>
+        console.log('teste ok')
+
+        document.getElementById('cep-form').addEventListener('submit', function (event) {
+            event.preventDefault();  // Impede o envio normal do formulário
+            $.ajax({
+                type: 'POST',
+                url: 'executarAPICEP/' + document.getElementById('cep').value + '/',
+                data: { cep: document.getElementById('cep').value },
+                success: function (response) {
+                    // Código a ser executado em caso de sucesso
+                    const div_rua = document.getElementById('rua')
+                    div_rua.textContent = response['logradouro']
+
+                    const div_bairro = document.getElementById('bairro')
+                    div_bairro.textContent = response['bairro']
+
+                    const div_cidade = document.getElementById('cidade')
+                    div_cidade.textContent = response['localidade']
+
+                    const div_uf = document.getElementById('uf')
+                    div_uf.textContent = response['uf']
+
+                    const div_regiao = document.getElementById('regiao')
+                    div_regiao.textContent = response['regiao']
+                },
+                error: function (error) {
+                    // Código a ser executado em caso de erro
+                }
+            });
+        });
+    </script>
+
+</body>
+
+
+</body>
+
+</html>
