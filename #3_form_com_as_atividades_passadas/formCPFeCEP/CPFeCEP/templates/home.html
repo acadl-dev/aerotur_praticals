@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Usuário</title>
     <link rel="stylesheet" href="{% static 'CPFeCEP/css/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 
 <body>
@@ -26,13 +27,14 @@
             <!-- Campo CPF -->
             <div class="form-group">
                 <label for="cpf">CPF:</label>
-                <input id="cpf" type="text" name="cpf" placeholder="Digite o CPF" maxlength="11" required>
+                <input id="cpf" type="text" name="cpf" placeholder="Digite o CPF" onkeyup="tratar_cpf()" required>
+                <div id="recebe_validacao_cpf"></div>
             </div>
 
             <!-- Campo CNPJ -->
             <div class="form-group">
                 <label for="cnpj">CNPJ:</label>
-                <input id="cnpj" type="text" name="cnpj" placeholder="Digite o CNPJ" maxlength="14">
+                <input id="cnpj" type="text" name="cnpj" placeholder="Digite o CNPJ">
             </div>
 
             <!-- Campo Email -->
@@ -44,33 +46,33 @@
             <!-- Campo CEP -->
             <div class="form-group">
                 <label for="cep">CEP:</label>
-                <input id="cep" type="text" name="cep" placeholder="Digite o CEP" required>
+                <input id="cep" type="text" name="cep" placeholder="Digite o CEP" onkeyup="tratar_cep()" required>
             </div>
 
             <!-- Campos preenchidos automaticamente -->
             <div class="form-group">
-                <p>Rua:</p>
-                <span id="rua"></span>
+                <p class="respostas_api" >Rua:</p>
+                <div class="respostas_api corpreta" id="rua"></div>
             </div>
 
             <div class="form-group">
-                <p>Bairro:</p>
-                <span id="bairro"></span>
+                <p class="respostas_api" >Bairro:</p>
+                <div class="respostas_api corpreta" id="bairro"></div>
             </div>
 
             <div class="form-group">
-                <p>Cidade:</p>
-                <span id="cidade"></span>
+                <p class="respostas_api" >Cidade:</p>
+                <div class="respostas_api corpreta" id="cidade"></div>
             </div>
 
             <div class="form-group">
-                <p>UF:</p>
-                <span id="uf"></span>
+                <p class="respostas_api" >UF:</p>
+                <div class="respostas_api corpreta" id="uf"></div>
             </div>
 
             <div class="form-group">
-                <p>Região:</p>
-                <span id="regiao"></span>
+                <p class="respostas_api" >Região:</p>
+                <div class="respostas_api corpreta" id="regiao"></div>
             </div>
 
             <!-- Botão de Submit -->
