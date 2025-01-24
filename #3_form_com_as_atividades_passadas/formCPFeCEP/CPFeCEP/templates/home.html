@@ -5,68 +5,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FORM</title>
-    <link rel="stylesheet" href="{% static 'CPFeCEP/css/estilo.css' %}">
+    <title>Cadastro de Usuário</title>
+    <link rel="stylesheet" href="{% static 'CPFeCEP/css/style.css' %}">
 </head>
 
 <body>
-    <div>
-        <h1>CADASTRAR USUÁRIO</h1>
+    <div class="card_form">
+        <h1>Cadastro de Usuário</h1>
         <p>Complete suas informações:</p>
 
         <form method="POST" id="cep-form">
             {% csrf_token %}
-            <div>
-                <label>NOME:</label>
-                <input id="nome" type="text" name="nome" placeholder="Digite seu nome">
-                <div></div>
-
-                <label>CPF:</label>
-                <input id="cpf" type="text" name="cpf" placeholder="Digite o CPF" maxlength="11" onkeyup="">
-                <div id="cpf"></div> 
-                
-                <label>CNPJ:</label>
-                <input id="cpf" type="text" name="cpf" placeholder="Digite o CPF" maxlength="11" onkeyup="">
-                <div id="cpf"></div>
-
-                <label>EMAIL:</label>
-                <input id="email" type="text" name="email" placeholder="Digite seu email">
-                <div id="cep"></div> 
-                         
             
-                <label>CEP:</label>
-                <input id="cep" type="text" name="cep" placeholder="Digite o CEP">
-                <div id="cep"></div>                  
-                
-                
-                <p>Região:</p>
-                <div id="regiao"></div>   
-
-                <p>Rua:</p>
-                <div id="rua"></div>
-
-                <p>Bairro:</p>
-                <div id="bairro"></div>
-
-                <p>Cidade:</p>
-                <div id="cidade"></div>
-
-                <p>UF:</p>
-                <div id="uf"></div>
-
-                <p>Região:</p>
-                <div id="regiao"></div>
-                
+            <!-- Campo Nome -->
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input id="nome" type="text" name="nome" placeholder="Digite seu nome" required>
             </div>
-        </form>
 
+            <!-- Campo CPF -->
+            <div class="form-group">
+                <label for="cpf">CPF:</label>
+                <input id="cpf" type="text" name="cpf" placeholder="Digite o CPF" maxlength="11" required>
+            </div>
+
+            <!-- Campo CNPJ -->
+            <div class="form-group">
+                <label for="cnpj">CNPJ:</label>
+                <input id="cnpj" type="text" name="cnpj" placeholder="Digite o CNPJ" maxlength="14">
+            </div>
+
+            <!-- Campo Email -->
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input id="email" type="email" name="email" placeholder="Digite seu email" required>
+            </div>
+
+            <!-- Campo CEP -->
+            <div class="form-group">
+                <label for="cep">CEP:</label>
+                <input id="cep" type="text" name="cep" placeholder="Digite o CEP" required>
+            </div>
+
+            <!-- Campos preenchidos automaticamente -->
+            <div class="form-group">
+                <p>Rua:</p>
+                <span id="rua"></span>
+            </div>
+
+            <div class="form-group">
+                <p>Bairro:</p>
+                <span id="bairro"></span>
+            </div>
+
+            <div class="form-group">
+                <p>Cidade:</p>
+                <span id="cidade"></span>
+            </div>
+
+            <div class="form-group">
+                <p>UF:</p>
+                <span id="uf"></span>
+            </div>
+
+            <div class="form-group">
+                <p>Região:</p>
+                <span id="regiao"></span>
+            </div>
+
+            <!-- Botão de Submit -->
+            <button type="submit" class="btn-submit">REGISTRAR</button>
+        </form>
     </div>    
 
-<script src="{% static 'CPFeCEP/js/script.js' %}"></script>
-
-</body>
-
-
+    <script src="{% static 'CPFeCEP/js/script.js' %}"></script>
 </body>
 
 </html>
