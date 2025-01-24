@@ -21,7 +21,7 @@ def executarAPICEP(request, cep):
     
 @csrf_exempt
 def validador_cpf(request, cpf):
-    valido = valida_cpf(cpf)  # Chama a função de validação
+    valido = valida_cpf(cpf) 
     if valido:
         response_data = {'valido': True, 'mensagem': f"CPF válido!"}
         return JsonResponse(response_data, status=200)

@@ -1,4 +1,8 @@
 
+let nome_rua = ''
+let liberacao_submit_cpf = false
+let liberacao_submit_cep = false
+
 // Formata o cpf no front
 document.getElementById('cpf').addEventListener('input', function (e) {
     var value = document.getElementById('cpf').value;
@@ -31,6 +35,22 @@ document.getElementById('cep').addEventListener('input', function (e) {
     e.target.value = cepPattern;
 }
 )
+// Botão de submit
+document.getElementById('cep-form').addEventListener('submit', function (event) {
+    // event.preventDefault();  // Impede o envio normal do formulário
+    if(/* liberacao_submit_cep == false || */ liberacao_submit_cpf == false){
+        alert("Reveja suas informações")
+        return
+    }
+    alert(`Usuário cadastro com sucesso!
+        \nNOME: ${nome.value}
+        \nCPF: ${cpf.value}
+        \nCNPJ: ${cnpj.value}
+        \nEMAIL: ${email.value}
+        \nRUA: ${nome_rua}`);
+
+});
+
 
 function tratar_cep() {
     console.log('teste ok')
@@ -48,7 +68,7 @@ function tratar_cep() {
 
             const div_rua = document.getElementById('rua')
             div_rua.textContent = data['logradouro']
-            console.log(div_rua)
+            nome_rua = div_rua.textContent
 
             const div_bairro = document.getElementById('bairro')
             div_bairro.textContent = data['bairro']
@@ -61,11 +81,17 @@ function tratar_cep() {
 
             const div_regiao = document.getElementById('regiao')
             div_regiao.textContent = data['regiao']
+
+            if(nome_rua){
+                liberacao_submit_cep = true
+            }
         },
         error: function (error) {
             // Código a ser executado em caso de erro
         }
     });
+
+    
 }
 
 function tratar_cpf() {
@@ -94,6 +120,9 @@ function tratar_cpf() {
 
                     const mensagemDiv = document.getElementById('recebe_validacao_cpf')
                     mensagemDiv.textContent = response_data['mensagem'];
+                    if(mensagemDiv.textContent == "CPF válido!"){
+                        liberacao_submit_cpf = true
+                    }
                 },
                 error: function (error) {
                     // Código a ser executado em caso de erro
@@ -107,6 +136,5 @@ function tratar_cpf() {
 function verificaCaracteresIguais(entrada_usuario) {
     return /^(\d)\1{10}$/.test(entrada_usuario);
 }
-
 
 
