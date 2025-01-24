@@ -48,7 +48,7 @@ p {
 }
 
 .btn-submit {
-    background-color: #28a745; /* Verde */
+    background-color: #A2A7BA; /* Verde */
     color: white;
     padding: 10px 15px;
     border: none;
@@ -61,5 +61,5 @@ p {
 }
 
 .btn-submit:hover {
-    background-color: #218838; /* Verde mais escuro ao passar o mouse */
+    background-color: rgb(42, 121, 124); /* Verde mais escuro ao passar o mouse */
 }
