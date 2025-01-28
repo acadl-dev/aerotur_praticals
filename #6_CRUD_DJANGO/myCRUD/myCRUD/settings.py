@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     
-    'CRUD.apps.CrudConfig',   # A classe BlogConfig é a configuração do aplicativo. Agora o Django sabe que o aplicativo éativo para este projeto e poderá carregar os modelos de aplicação.
+    'CRUD.apps.CrudConfig',   # A classe BlogConfig é a configuração do aplicativo. Agora o Django sabe que o aplicativo é ativo para este projeto e poderá carregar os modelos de aplicação.
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
