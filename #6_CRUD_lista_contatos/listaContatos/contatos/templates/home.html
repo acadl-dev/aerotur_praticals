@@ -21,23 +21,25 @@
             <button class="add-button" onclick="openModal()">Add New Contact</button>
         </header>
 
-        <table class="contact-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="contact-list">
-                <!-- Example row -->
-                <tr>
-                    <td>John Doe</td>
-                    <td>(123) 456-7890</td>
-                    <td><button class="delete-button">Delete</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <form method="POST" id="">
+            <table class="contact-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="contact-list">
+                    <!-- Example row -->
+                    <tr>
+                        <td>John Doe</td>
+                        <td>(123) 456-7890</td>
+                        <td><button class="delete-button">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
 
         <!-- Modal -->
         <div id="modal" class="modal hidden">
@@ -55,7 +57,7 @@
                 </form>
             </div>
         </div>
-    </div>    
+    </div>
 </body>
 
 </html>
