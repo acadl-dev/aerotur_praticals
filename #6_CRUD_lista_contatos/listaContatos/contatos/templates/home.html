@@ -6,58 +6,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de contatos</title>
+
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Scripts externos -->
+    <script src="{% static 'contatos/js/dialog.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Estilos -->
     <link rel="stylesheet" href="{% static 'contatos/css/style.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
 
 </head>
 
-<body>
-    <div class="container">
-        <header>
-            <h1>Contact List</h1>
-            <div class="search-bar">
-                <input type="text" placeholder="Search contacts..." id="search" />
+<body class="bg-gray-100">
+    <div id="message-box"></div>
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Lista telefônica</h1>
+            <div class="flex justify-between items-center">
+                <div class="search-bar w-1/2">
+                    <input type="text" placeholder="Search contacts..." id="search"
+                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <button id="openDialog"
+                    class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Adicionar novo contato
+                </button>
             </div>
-            <button class="add-button" onclick="openModal()">Add New Contact</button>
         </header>
 
-        <form method="POST" id="">
-            <table class="contact-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="contact-list">
-                    <!-- Example row -->
-                    <tr>
-                        <td>John Doe</td>
-                        <td>(123) 456-7890</td>
-                        <td><button class="delete-button">Delete</button></td>
-                    </tr>
-                </tbody>
-            </table>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <table class="contact-table min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Name</th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Phone</th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contact-list" class="bg-white divide-y divide-gray-200">
+                        {% for contato in contatos %}
+                        <tr id="contact-{{ contato.id }}">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ contato.nome }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ contato.telefone }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button type="button" class="delete-button text-black-600 hover:text-red-900"
+                                    data-id="{{ contato.id }}">Delete</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </form>
 
-        <!-- Modal -->
+        <!-- Modal (mantido como estava) -->
         <div id="modal" class="modal hidden">
+            <!-- Modal -->
+
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2>Add New Contact</h2>
-                <form id="contact-form">
+
+                <form method="POST" id="contact-form">
+                    {% csrf_token %}
                     <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" value="" name="name" required>
 
                     <label for="phone">Phone:</label>
-                    <input type="text" id="phone" name="phone" required>
+                    <input type="text" id="phone" value="" name="testee" required>
 
                     <button type="submit">Add Contact</button>
                 </form>
             </div>
+
         </div>
     </div>
+
+    <!-- Dialog (mantido como estava) -->
+    <div id="dialog"
+        class="fixed inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl sm:max-w-[425px] w-full mx-4">
+            <div class="p-6">
+                <h2 class="text-lg font-semibold mb-2">Edit profile</h2>
+                <p class="text-sm text-gray-500 mb-4">
+                    Make changes to your profile here. Click save when you're done.
+                </p>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-4 items-center gap-4">
+                        <label for="nome" class="text-right text-sm font-medium">Name</label>
+                        <input type="text" id="nome" value="" class="col-span-3 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                            focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500">
+                    </div>
+                    <div class="grid grid-cols-4 items-center gap-4">
+                        <label for="telephone" class="text-right text-sm font-medium">Telephone</label>
+                        <input type="text" id="telephone" value="" class="col-span-3 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                            focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500">
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button type="submit" id="saveChanges"
+                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    Save changes
+                </button>
+                <button type="button" id="closeDialog"
+                    class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
 </body>
+
+
 
 </html>

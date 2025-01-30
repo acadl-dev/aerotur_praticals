@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dialog Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'contatos/js/dialog.js' %}" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+</head>
+<body class="p-8">
+    <button id="openDialog" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+        Edit Profile
+    </button>
+
+    <div id="dialog" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl sm:max-w-[425px] w-full mx-4">
+            <div class="p-6">
+                <h2 class="text-lg font-semibold mb-2">Edit profile</h2>
+                <p class="text-sm text-gray-500 mb-4">
+                    Make changes to your profile here. Click save when you're done.
+                </p>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-4 items-center gap-4">
+                        <label for="name" class="text-right text-sm font-medium">Name</label>
+                        <input type="text" id="name" value="Ailton Costa" class="col-span-3 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                            focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500">
+                    </div>
+                    <div class="grid grid-cols-4 items-center gap-4">
+                        <label for="username" class="text-right text-sm font-medium">Telephone</label>
+                        <input type="text" id="username" value="@acadl_dev" class="col-span-3 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+                            focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500">
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button type="button" id="saveChanges" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    Save changes
+                </button>
+                <button type="button" id="closeDialog" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
