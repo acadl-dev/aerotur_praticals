@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de contatos</title>
+    <link rel="stylesheet" href="{% static 'contatos/css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Contact List</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="Search contacts..." id="search" />
+            </div>
+            <button class="add-button" onclick="openModal()">Add New Contact</button>
+        </header>
+
+        <form method="POST" id="">
+            <table class="contact-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="contact-list">
+                    <!-- Example row -->
+                    <tr>
+                        <td>John Doe</td>
+                        <td>(123) 456-7890</td>
+                        <td><button class="delete-button">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+
+        <!-- Modal -->
+        <div id="modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Add New Contact</h2>
+                <form id="contact-form">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" name="phone" required>
+
+                    <button type="submit">Add Contact</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
