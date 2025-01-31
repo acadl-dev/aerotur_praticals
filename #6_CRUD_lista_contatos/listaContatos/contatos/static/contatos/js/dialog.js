@@ -81,9 +81,35 @@ document.addEventListener("DOMContentLoaded", () => {
         e.target.value = cpfPattern;
     });
 
-})
 
-// Formata o cpf no front
+    document.getElementById('search').addEventListener('input', function (e) {
+        var value = document.getElementById('search').value;
+
+        entrada_filtro_value = value
+        console.log(entrada_filtro_value)
+
+        $.ajax({
+            type: 'GET',
+            url: 'contato/',
+            data: { entrada_filtro: entrada_filtro_value },  
+            success: function (data) {
+
+                
+            },
+            error: function (error) {
+                // Código a ser executado em caso de erro
+                console.log('algo deu errado dentro no ajax') 
+            }
+        });
+        
+        
+    })
+        
+    });
+
+
+
+
 
 
 

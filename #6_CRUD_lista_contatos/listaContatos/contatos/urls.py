@@ -6,4 +6,5 @@ urlpatterns = [
     path('contato/', views.contato, name='contato'),
     path('delete_contact/<int:id>/', views.contactdelete, name='contactdelete'),
     
+    
 ]

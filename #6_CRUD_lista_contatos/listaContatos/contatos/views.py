@@ -1,4 +1,4 @@
-gifrom django.shortcuts import render, redirect
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from .models import Contato  # Certifique-se de que o modelo está correto
 from django.shortcuts import render
@@ -17,6 +17,22 @@ def home(request):
 
 @csrf_exempt
 def contato(request):
+    contatos_lista = Contato.objects.all()  # Inicializa a variável para evitar erro caso não haja filtro
+    
+    if request.method == 'GET':
+        filtro = request.GET.get('entrada_filtro')
+        
+        if filtro:
+            contatos_lista = Contato.objects.filter(nome__icontains=filtro)
+            
+            print(contatos_lista)
+        contatos_lista = list(contatos.values())  # Converte para lista de dicionários
+        
+    return render(request, 'home.html', {'contatos': contatos})
+    
+    
+        
+        
     if request.method == "POST":
         nome = request.POST.get('nome')
         telefone = request.POST.get('telefone')       
@@ -44,3 +60,5 @@ def contactdelete(request, id):
             return JsonResponse({"succes": True,  "message": "O contato foi excluído com sucesso!"}, status=200)
         except Contato.DoesNotExist: return JsonResponse({"error": "Contato não encontrado"}, status=404)
     return JsonResponse({"error": "Método inválido"}, status=405)
+
+        

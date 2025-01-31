@@ -12,8 +12,8 @@
 
     <!-- Scripts externos -->
     <script src="{% static 'contatos/js/dialog.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    
 
     <!-- Estilos -->
     <link rel="stylesheet" href="{% static 'contatos/css/style.css' %}">
@@ -27,11 +27,11 @@
             <h1 class="text-3xl font-bold text-gray-800 mb-4">Lista telefônica</h1>
             <div class="flex justify-between items-center">
                 <div class="search-bar w-1/2">
-                    <input type="text" placeholder="Search contacts..." id="search"
+                    <input type="text" placeholder="Search contacts..." id="search" value="teste"
                         class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
                 <button id="openDialog"
-                    class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    class="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-md hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                     Adicionar novo contato
                 </button>
             </div>
