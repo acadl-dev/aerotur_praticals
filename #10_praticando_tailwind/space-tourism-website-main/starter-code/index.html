@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" sizes="32x32"
+      href="./assets/favicon-32x32.png">
+    <link href="/path/to/tailwind.css" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              backgroundImage: {
+                'custom-fundo': "url('./assets/home/background-home-desktop.jpg')"
+              }
+            }
+          }
+        }
+      </script>
+
+    <title>Frontend Mentor | Space tourism website</title>
+  </head>
+  <body class="bg-custom-fundo bg-cover bg-center overflow-hidden">
+    <div class="grid grid-cols-6 gap-4 items-center h-screen">
+      
+      <div class="col-start-1 col-span-1">
+        <div class="mr-auto ml-7 mt-6"><img
+            class="inline"
+            src="./assets/shared/logo.svg">
+          </div>
+          </div>
+
+      <div class="col-start-2 col-span-1 bg-gray-500 rounded-full w-screen h-px">
+        
+      </div>
+
+      <div class="col-start-3 col-span-4 justify-self-end backdrop-blur-md w-280 h-20 pt-8 pr-20">
+
+        <ul
+          class="flex text-white space-x-16 text-sm tracking-normal uppercase ml-8">
+
+          <li><span class="font-bold pr-2"> <a href="/sobre-nos" 
+            class="text-blue-500 hover:text-blue-700 underline"
+            aria-label="Saiba mais sobre nós">
+            Saiba mais sobre nós
+         </a> 00</span> Home</li>
+          <li><span class="font-bold pr-2">01</span> Destination</li>
+          <li><span class="font-bold pr-2">02</span> Crew</li>
+          <li><span class="font-bold pr-2">03</span> Technology</li>
+
+        </ul>
+
+      </div>
+      <div class="pl-56 col-start-1 col-end-4 text-white space-y-7">
+        <p class="text-2xl uppercase"> So, you want to travel to </p>
+        <p class="text-9xl uppercase"> Space
+        <p class="pr-40 text-1xl"> Let’s face it; if you want to go to space, you might as well
+            genuinely
+            go to
+            outer space and not hover kind of on the edge of it. Well sit back,
+            and
+            relax
+            because we’ll give you a truly out of this world
+            experience!
+          </p>
+        </div>
+        <div class="col-end-7 col-span-2">
+
+          <div class="flex items-center justify-center min-h-screen">
+            <div
+              class="p- bg-white rounded-full w-52 h-52 flex items-center justify-center">
+              <p class="uppercase text-3xl"> Explore </p> </div>
+          </div>
+        </div>
+      </div>
+    </body>
+
+  </html>
